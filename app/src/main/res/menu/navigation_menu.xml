@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/inicio"
+            android:icon="@drawable/home"
+            android:title="Home" />
+        <item
+            android:id="@+id/ciudades"
+            android:icon="@drawable/city"
+            android:title="Ciudad" />
+        <item
+            android:id="@+id/Kebabs"
+            android:icon="@drawable/restaurant"
+            android:title="Kebabs" />
+        <item
+            android:id="@+id/Configuracion"
+            android:icon="@drawable/settings"
+            android:title="Configuracion perfil" />
+        <item
+            android:id="@+id/delete"
+            android:icon="@drawable/borrar"
+            android:title="Borrar cuenta" />
+
+
+
+
+    </group>
+</menu>
