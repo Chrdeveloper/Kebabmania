@@ -1,0 +1,12 @@
+<resources>
+    <string name="ciudad_fragment">Ciudad</string>
+    <string name="configuration_fragment">Configuracion</string>
+    <string name="kebab_fragment">KebabOffer</string>
+    <string name="kebab_detail">KebabDetail</string>
+    <string name="delete_fragment">Delete</string>
+    <string name="home_fragment">Home</string>
+    <string name="app_name">Kebabmania</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
