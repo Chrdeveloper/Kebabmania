@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/azul"
+    tools:context="com.example.kebabmania.Fragments.CiudadFragment">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/ic_launcher_background"
+        android:id="@+id/logoHome"
+
+        ></ImageView>
+
+
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="Escribe la ciudad en la que quieras buscar"
+        app:layout_constraintTop_toBottomOf="@id/logoHome"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/white"
+        android:id="@+id/editSearcher"
+        >
+
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/textSearcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:text="Elige tu ciudad!"
+        android:textColor="#CDDC39"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editSearcher" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:layout_constraintTop_toBottomOf="@id/textSearcher"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/scrollReviwerCity"
+        app:layout_constraintEnd_toEndOf="parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="300dp"
+            android:layout_height="500dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/RecyclerCity">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.core.widget.NestedScrollView>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buscar!"
+        app:layout_constraintTop_toBottomOf="@id/scrollReviwerCity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="#CDDC39"
+        ></Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
