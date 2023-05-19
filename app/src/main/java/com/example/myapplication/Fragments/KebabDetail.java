@@ -1,4 +1,4 @@
-package com.example.kebabmania.Fragments;
+package com.example.myapplication.Fragments;
 
 import android.os.Bundle;
 
