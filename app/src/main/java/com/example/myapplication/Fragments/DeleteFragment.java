@@ -28,7 +28,7 @@ public class DeleteFragment extends Fragment {
 
 
 
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_delete, container, false);
     }
 
 

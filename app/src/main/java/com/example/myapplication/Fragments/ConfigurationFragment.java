@@ -29,7 +29,7 @@ public class ConfigurationFragment extends Fragment {
 
 
 
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_configuation, container, false);
     }
 
 
