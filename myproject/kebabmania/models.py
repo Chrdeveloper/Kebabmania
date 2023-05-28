@@ -35,7 +35,7 @@ class Plato(models.Model):
 class Usuario(models.Model):
     nombre = models.CharField(max_length=100)
     telefono = models.CharField(max_length=10, unique=True)
-
+    token = models.CharField(unique=True, max_length=20, null=True)
     def to_json(self):
         return {
             "id": self.id,
