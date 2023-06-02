@@ -1,8 +1,11 @@
 package com.example.myapplication;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,24 +21,36 @@ import com.example.myapplication.Fragments.DeleteFragment;
 import com.example.myapplication.Fragments.HomeFragment;
 import com.example.myapplication.Fragments.KebabFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         DrawerLayout.DrawerListener {
     private DrawerLayout drawerLayout;
-
+    private Context context;
     private int itemSavedId;
     protected void onCreate(Bundle savedInstanceState) {
 
 
         super.onCreate(savedInstanceState);
+        context = this;
+
+        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS",MODE_PRIVATE);
+
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         if (savedInstanceState == null)
-            itemSavedId =0;
+            if (preferences.getInt("cityId",-1) == -1){
+                itemSavedId = 1;
+        } else{
+                itemSavedId =0;
+            }
+
         else
-            itemSavedId =savedInstanceState.getInt("item", 0);
+            itemSavedId =savedInstanceState.getInt("item", 1);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -92,21 +107,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int title;
+        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS",MODE_PRIVATE);
+        View view;
         int itemId = item.getItemId();
         if (itemId == R.id.inicio) {
-            itemSavedId = 0;
-            title = R.string.home_fragment;
-            Fragment fragment = HomeFragment.newInstance(getString(title));
-            getSupportFragmentManager()
-                    .beginTransaction()
+            if (preferences.getInt("cityId",-1) == -1){
+                Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
 
-                    .replace(R.id.home_content, fragment)
-                    .commit();
+            } else {
+                itemSavedId = 0;
+                title = R.string.home_fragment;
+                Fragment fragment = HomeFragment.newInstance(getString(title));
+                getSupportFragmentManager()
+                        .beginTransaction()
+
+                        .replace(R.id.home_content, fragment)
+                        .commit();
 
 
-            setTitle(getString(title));
+                setTitle(getString(title));
 
-            drawerLayout.close();
+                drawerLayout.close();
+            }
+
+
+
         } else if (itemId == R.id.ciudades) {
             itemSavedId = 1;
             title = R.string.ciudad_fragment;
@@ -121,44 +146,61 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             drawerLayout.closeDrawer(GravityCompat.START);
         } else if (itemId == R.id.Kebabs) {
-            itemSavedId = 3;
-            title = R.string.kebab_fragment;
-            Fragment comedorFragment = KebabFragment.newInstance(getString(title));
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.home_content, comedorFragment)
-                    .commit();
+            if (preferences.getInt("cityId",-1) == -1){
+                Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
+
+            } else {
 
 
-            setTitle(getString(title));
+                itemSavedId = 3;
+                title = R.string.kebab_fragment;
+                Fragment comedorFragment = KebabFragment.newInstance(getString(title));
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.home_content, comedorFragment)
+                        .commit();
 
-            drawerLayout.closeDrawer(GravityCompat.START);
+
+                setTitle(getString(title));
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
         } else if (itemId == R.id.Configuracion) {
-            itemSavedId = 2;
-            title = R.string.configuration_fragment;
-            Fragment extraFragment = ConfigurationFragment.newInstance(getString(title));
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.home_content, extraFragment)
-                    .commit();
+            if (preferences.getInt("cityId",-1) == -1){
+                Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
+
+            } else {
+                itemSavedId = 2;
+                title = R.string.configuration_fragment;
+                Fragment extraFragment = ConfigurationFragment.newInstance(getString(title));
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.home_content, extraFragment)
+                        .commit();
 
 
-            setTitle(getString(title));
+                setTitle(getString(title));
 
-            drawerLayout.closeDrawer(GravityCompat.START);
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
         } else if (itemId == R.id.delete) {
-            itemSavedId = 3;
-            title = R.string.delete_fragment;
-            Fragment deleteFragment = DeleteFragment.newInstance(getString(title));
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.home_content, deleteFragment)
-                    .commit();
+            if (preferences.getInt("cityId",-1) == -1){
+                Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
+
+            } else {
+                itemSavedId = 4;
+                title = R.string.delete_fragment;
+                Fragment deleteFragment = DeleteFragment.newInstance(getString(title));
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.home_content, deleteFragment)
+                        .commit();
 
 
-            setTitle(getString(title));
+                setTitle(getString(title));
 
-            drawerLayout.closeDrawer(GravityCompat.START);
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
         } else {
             throw new IllegalArgumentException("menu option not implemented!!");
         }
