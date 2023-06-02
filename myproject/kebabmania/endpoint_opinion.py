@@ -16,8 +16,7 @@ def opinions (request, tlf):
     except Usuario.DoesNotExist:
         return JsonResponse({"error": "Unauthorized"}, status=401)
 
-    user = Usuario.objects.get(token=request_token)
-    userjson = user.to_json()
+
     # Si el verbo es un get entrara aqui
     if request.method == "GET":
 
@@ -47,20 +46,23 @@ def opinions (request, tlf):
         return JsonResponse(json_response, safe=False)
 
     elif request.method == "POST":
-
+        usuario = Usuario.objects.get(telefono=tlf)
         json_body = json.loads(request.body)
 
         json_nota = json_body['nota']
         json_idKebab = json_body['id_kebab']
 
+        if json_nota is None or json_idKebab is None:
+            return JsonResponse({'error': 'Missing parameters'}, status=400)
+
         kebab = Kebab.objects.get(id=json_idKebab)
 
-        existingOpinion = Opiniones.objects.filter(id_kebab=kebab, id_usuario=user)
+        existingOpinion = Opiniones.objects.filter(id_kebab=kebab, id_usuario=usuario)
 
         if existingOpinion is not None:
-            Opiniones.objects.filter(id_kebab=kebab, id_usuario=user).delete()
+            Opiniones.objects.filter(id_kebab=kebab, id_usuario=usuario).delete()
 
-        new_opinion = Opiniones(id_usuario=user,id_kebab=kebab,nota = json_nota)
+        new_opinion = Opiniones(id_usuario=user,id_kebab=kebab,nota=json_nota)
 
         new_opinion.save()
 
@@ -69,3 +71,8 @@ def opinions (request, tlf):
 
     else:
         return JsonResponse({'error': 'Unsupported HTTP method'}, status=405)
+
+
+
+
+
