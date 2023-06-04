@@ -1,6 +1,6 @@
 package com.example.myapplication.RecyclerOpinion;
 
-import com.example.myapplication.RecyclerCity.City;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;

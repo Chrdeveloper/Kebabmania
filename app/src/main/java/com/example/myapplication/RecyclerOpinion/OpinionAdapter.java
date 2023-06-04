@@ -41,6 +41,6 @@ public class OpinionAdapter extends RecyclerView.Adapter<OpinionViewHolder>{
 
     @Override
     public int getItemCount() {
-        return 0;
+        return this.opinionList.getOpiniones().size();
     }
 }

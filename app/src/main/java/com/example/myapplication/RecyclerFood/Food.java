@@ -1,16 +1,16 @@
-package com.example.myapplication.RecyclerOpinion;
+package com.example.myapplication.RecyclerFood;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Opinion {
+public class Food {
     String nombre;
 
-    int nota;
+    String descripcion;
 
-    public Opinion(JSONObject jsonObject) {
+    public Food(JSONObject jsonObject) {
         try {
-            this.nota = jsonObject.getInt("nota");
+            this.descripcion = jsonObject.getString("descripcion");
             this.nombre = jsonObject.getString("nombre");
 
 
@@ -18,14 +18,14 @@ public class Opinion {
             throw new RuntimeException(jsonException);
         }
     }
-    public int getNota() {
-        return nota;
+
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNota(int nota) {
-        this.nota = nota;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
-
 
     public String getNombre() {
         return nombre;
@@ -34,7 +34,6 @@ public class Opinion {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
 
 
 }

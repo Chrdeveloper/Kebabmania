@@ -110,7 +110,7 @@ public class ConfigurationFragment extends Fragment {
 
 
 
-        return inflater.inflate(R.layout.fragment_configuation, container, false);
+        return view;
     }
 
 

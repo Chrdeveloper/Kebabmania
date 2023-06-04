@@ -99,7 +99,7 @@ public class CiudadFragment extends Fragment {
 
 
 
-        return inflater.inflate(R.layout.fragment_ciudad, container, false);
+        return view;
     }
 
 

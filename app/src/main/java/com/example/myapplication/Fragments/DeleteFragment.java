@@ -40,10 +40,11 @@ public class DeleteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_delete, container, false);
-        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+
 
         context = getContext();
+        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
         client = RestClient.getInstance(context);
         deleteButton = view.findViewById(R.id.botonDelete);
 

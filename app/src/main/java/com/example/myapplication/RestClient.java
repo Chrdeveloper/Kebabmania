@@ -179,6 +179,73 @@ public class RestClient {
 
     }
 
+    public void getKebab(View view, Response.Listener<JSONArray> respuesta, Response.ErrorListener errorResponse) {
+        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
+        String idcity = String.valueOf(preferences.getInt("idCity",-1));
+        JsonArrayRequest request = new JsonArrayRequest(
+                Request.Method.GET,
+                BASE_URL + "kebabs/"+idcity,
+                null,
+                respuesta,
+                errorResponse
+        );
+
+        queue.add(request);
+
+
+    }
+
+
+    public void getFood(Response.Listener<JSONArray> respuesta, Response.ErrorListener errorResponse) {
+        JsonArrayRequest request = new JsonArrayRequest(
+                Request.Method.GET,
+                BASE_URL + "food",
+                null,
+                respuesta,
+                errorResponse
+        );
+
+        queue.add(request);
+
+
+    }
+
+    public void postOpinion(int nota, String id, Response.Listener<JSONObject> respuesta, Response.ErrorListener errorResponse){
+        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
+        String token = preferences.getString("userToken", null);
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("nota", nota);
+            requestBody.put("id_kebab", id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest (
+                Request.Method.POST,
+                BASE_URL +"opinion/"+ preferences.getString("userTelefono", null),
+                requestBody,
+                respuesta,
+                errorResponse
+
+        ){
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Session-token", token);
+                return headers;
+            }
+
+
+        };
+
+
+
+
+
+
+    }
+
 
 
 

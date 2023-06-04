@@ -4,10 +4,20 @@
     <string name="kebab_fragment">KebabOffer</string>
     <string name="kebab_detail">KebabDetail</string>
     <string name="delete_fragment">Delete</string>
+    <string name="kebabDetail_fragment">Detalle</string>
     <string name="home_fragment">Home</string>
     <string name="app_name">Kebabmania</string>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
     <string name="configlogin_fragment">Registro</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <integer-array name="score_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
 </resources>

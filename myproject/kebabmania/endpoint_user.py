@@ -56,7 +56,7 @@ def crear(request):
     if new_nombre is None or new_telefono is None:
         return JsonResponse({'error': 'Missing parameter in request body'}, status=400)
 
-    if phonenumber_field.validators.validate_international_phonenumber("+34"+new_telefono) is False:
+    if len(new_telefono) != 9 :
         return JsonResponse({"error": "Telefono invalido"}, status=409)
 
 
