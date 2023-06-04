@@ -13,7 +13,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
     private CityList cityList;
 
     public CityAdapter(CityList cityList) {
-
+        this.cityList = cityList;
     }
 
 
@@ -38,6 +38,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
 
     @Override
     public int getItemCount() {
-        return this.cityList.getCities().size();
+        int cities = this.cityList.getCities().size();
+
+        return cities;
     }
 }

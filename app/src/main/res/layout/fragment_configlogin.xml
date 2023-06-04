@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-
-<androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/azul"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
 <TextView
@@ -33,10 +27,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="200dp"
+        android:ems="10"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:id="@+id/newNameConfig"
-        />
+
+        >
+    </EditText>
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,6 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginEnd="300dp"
         android:textSize="20dp"
+
         android:textColor="@color/amarillo"
         android:layout_marginBottom="10dp"/>
 
@@ -55,11 +53,15 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
+        android:textColor="@color/black"
+        android:ems="10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/newNameConfig"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_marginStart="10dp"
         android:id="@+id/newTlfConfig"
         />
@@ -80,10 +82,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/newTlfConfig"
         android:layout_marginTop="100dp"
+        android:ems="10"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:id="@+id/codeConfig"
@@ -93,6 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enviar SMS"
+        android:backgroundTint="@color/amarillo"
         app:layout_constraintTop_toBottomOf="@id/codeConfig"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,4 +118,3 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>

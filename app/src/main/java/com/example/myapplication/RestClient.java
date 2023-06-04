@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RestClient {
-    private String BASE_MOCKAPI_URL = "https://afc1dd24-edbd-4fdb-8da8-8543e7132aa3.mock.pstmn.io";
+
     private String BASE_REAL_URL = "http://10.0.2.2:8000/";
 
     private String BASE_URL = BASE_REAL_URL;
@@ -181,7 +181,7 @@ public class RestClient {
 
     public void getKebab(View view, Response.Listener<JSONArray> respuesta, Response.ErrorListener errorResponse) {
         SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
-        String idcity = String.valueOf(preferences.getInt("idCity",-1));
+        String idcity = String.valueOf(preferences.getString("cityId","0"));
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
                 BASE_URL + "kebabs/"+idcity,

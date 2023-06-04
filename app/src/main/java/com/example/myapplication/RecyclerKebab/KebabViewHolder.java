@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.KebabDetail;
 import com.example.myapplication.R;
 
 public class KebabViewHolder extends RecyclerView.ViewHolder{
@@ -29,7 +30,7 @@ public class KebabViewHolder extends RecyclerView.ViewHolder{
         vermas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(context, Kebab.class);
+                Intent myIntent = new Intent(context, KebabDetail.class);
                 myIntent.putExtra("ID_KEBAB",id );
                 myIntent.putExtra("NOMBRE_KEBAB", nombre.getText().toString());
                 myIntent.putExtra("LUGAR_KEBAB", lugar.getText().toString());

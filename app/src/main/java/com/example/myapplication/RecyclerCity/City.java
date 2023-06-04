@@ -4,25 +4,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class City {
-    int id;
+   String id;
 
     String nombre;
 
     public City(JSONObject jsonObject) {
         try {
-            this.id = jsonObject.getInt("id");
-            this.nombre = jsonObject.getString("nombre");
+            this.id = String.valueOf(jsonObject.getInt("id"));
+            this.nombre = jsonObject.getString("nom_ciudad");
 
 
         }catch (JSONException jsonException){
             throw new RuntimeException(jsonException);
         }
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

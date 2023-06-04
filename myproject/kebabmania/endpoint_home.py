@@ -2,7 +2,7 @@ import random
 
 from django.http import JsonResponse
 
-from kebabmania.models import Usuario, Opiniones, Kebab
+from kebabmania.models import Usuario, Opiniones, Kebab, Ciudad
 
 
 def home(request):
@@ -20,14 +20,32 @@ def home(request):
 
 
     last_opinion = Opiniones.objects.all().order_by('-id')[:1]
+    json_opinion = []
+    if last_opinion is not None:
+
+        json_last_opinion = last_opinion.to_json()
+
+        json_last_opinion_json = json_last_opinion.to_json()
+        kebab_nombre_opinion = Kebab.objects.get(id=json_last_opinion_json['id_kebab'])
+        kebab_nombre_opinion_json = kebab_nombre_opinion.to_json()
+        json_opinion['nombreKebab'] = kebab_nombre_opinion_json['nombre']
+        json_opinion['nota'] = str (json_last_opinion_json['nota'])
+        usuario_nombre_opinion = Usuario.objects.get(id=json_last_opinion_json['id_usuario'])
+        usuario_nombre_opinion_json = usuario_nombre_opinion.to_json()
+
+        json_opinion['nombreUsuario'] = usuario_nombre_opinion_json['nombre']
 
 
-    json_last_opinion = last_opinion.to_json()
+
+    else:
+        json_opinion['nombreKebab'] = 'Unknown'
+        json_opinion['nota'] = '0'
+        json_opinion['nombreUsuario'] = 'Unknown'
 
 
     json_response = []
 
-    json_response.append(json_last_opinion)
+    json_response.append(json_opinion)
 
 
     all_kebab = Kebab.objects.all()
@@ -37,7 +55,13 @@ def home(request):
 
     random_kebab = Kebab.objects.get(id=random_number)
 
+    random_kebab_json = random_kebab.to_json()
 
-    json_response.append(random_kebab)
+    ciudad = Ciudad.objects.get(id=random_kebab_json['id_ciudad'])
+    ciudad_json = ciudad.to_json()
+    random_kebab_json['nom_ciudad'] = ciudad_json['nom_ciudad']
+
+
+    json_response.append(random_kebab_json)
 
     return JsonResponse(json_response, safe=False)

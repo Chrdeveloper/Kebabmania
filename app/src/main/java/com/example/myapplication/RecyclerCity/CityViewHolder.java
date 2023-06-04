@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,14 +19,14 @@ public class CityViewHolder extends RecyclerView.ViewHolder{
 
     private City city;
 
-    private int id;
+    private String id;
 
     private String nombre;
 
     public CityViewHolder(@NonNull View itemView) {
         super(itemView);
         Context context = itemView.getContext();
-        Button button = itemView.findViewById(R.id.cityButton);
+        button = itemView.findViewById(R.id.cityButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,14 +34,15 @@ public class CityViewHolder extends RecyclerView.ViewHolder{
 
                 SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS",MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                if (preferences.getInt("idCity",-1) != -1 ){
+                if (preferences.getString("cityId","-1").equalsIgnoreCase("-1")){
 
-                    editor.putInt("idCity", id);
+                    editor.putString("cityId", id);
                     editor.commit();
 
                 }else{
-                    editor.remove("idCity");
-                    editor.putInt("idCity", id);
+                    editor.remove("cityId");
+                    editor.commit();
+                    editor.putString("cityId", id);
                     editor.commit();
                 }
 

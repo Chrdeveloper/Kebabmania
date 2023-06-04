@@ -5,7 +5,9 @@ class Ciudad(models.Model):
     nom_ciudad = models.CharField(max_length=20)
 
     def to_json(self):
-        return {'nom_ciudad': self.nom_ciudad}
+        return {
+            "id": self.id,
+            'nom_ciudad': self.nom_ciudad}
 
 
 class Kebab(models.Model):
@@ -16,7 +18,7 @@ class Kebab(models.Model):
         return {
             "id":self.id,
             "nombre": self.nombre,
-            "id_ciudad": self.id_ciudad,
+            "id_ciudad": self.id_ciudad_id,
             "lugar": self.lugar,
         }
 

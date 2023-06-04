@@ -29,14 +29,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private Context context;
     private int itemSavedId;
+
     protected void onCreate(Bundle savedInstanceState) {
 
 
         super.onCreate(savedInstanceState);
         context = this;
 
-        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS",MODE_PRIVATE);
-
+        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
 
 
         setContentView(R.layout.activity_main);
@@ -44,14 +44,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         if (savedInstanceState == null)
-            if (preferences.getInt("cityId",-1) == -1){
+            if (preferences.getString("cityId", "-1").equalsIgnoreCase("-1")) {
                 itemSavedId = 1;
-        } else{
-                itemSavedId =0;
+            } else {
+                itemSavedId = 0;
             }
 
         else
-            itemSavedId =savedInstanceState.getInt("item", 1);
+            itemSavedId = savedInstanceState.getInt("item", 1);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -65,14 +65,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         menuItem.setChecked(true);
 
 
-
-
     }
+
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("item", itemSavedId);
     }
+
     @Override
     public void onBackPressed() {
 
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
 
 
     @Override
@@ -108,11 +107,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int title;
-        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS",MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
         View view;
         int itemId = item.getItemId();
         if (itemId == R.id.inicio) {
-            if (preferences.getInt("cityId",-1) == -1){
+
+            if (preferences.getString("cityId", "-1").equalsIgnoreCase("-1")) {
                 Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
 
             } else {
@@ -132,7 +132,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
 
-
         } else if (itemId == R.id.ciudades) {
             itemSavedId = 1;
             title = R.string.ciudad_fragment;
@@ -147,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             drawerLayout.closeDrawer(GravityCompat.START);
         } else if (itemId == R.id.Kebabs) {
-            if (preferences.getInt("cityId",-1) == -1){
+            if (preferences.getString("cityId", "-1").equalsIgnoreCase("-1")) {
                 Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
 
             } else {
@@ -167,12 +166,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawerLayout.closeDrawer(GravityCompat.START);
             }
         } else if (itemId == R.id.Configuracion) {
-//            if (preferences.getInt("cityId",-1) == -1){
-//                Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
-//
-//            } else {
+            if (preferences.getString("cityId", "-1").equalsIgnoreCase("-1")) {
+                Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
+
+            } else {
                 itemSavedId = 2;
-                if (preferences.getInt("log",0) == 1){
+                if (preferences.getInt("log", 0) == 1) {
                     title = R.string.configuration_fragment;
                     Fragment extraFragment = ConfigurationFragment.newInstance(getString(title));
                     getSupportFragmentManager()
@@ -184,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     setTitle(getString(title));
 
                     drawerLayout.closeDrawer(GravityCompat.START);
-                } else{
+                } else {
                     title = R.string.configlogin_fragment;
                     Fragment extraFragment = NewUserFragment.newInstance(getString(title));
                     getSupportFragmentManager()
@@ -198,12 +197,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }
 
-            //}
+            }
         } else if (itemId == R.id.delete) {
-//            if (preferences.getInt("cityId",-1) == -1){
-//                Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
-//
-//            } else {
+            if (preferences.getString("cityId", "-1").equalsIgnoreCase("-1")) {
+                Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
+
+            } else {
                 itemSavedId = 4;
                 title = R.string.delete_fragment;
                 Fragment deleteFragment = DeleteFragment.newInstance(getString(title));
@@ -216,11 +215,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 setTitle(getString(title));
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-//            }
-        } else {
-            throw new IllegalArgumentException("menu option not implemented!!");
-        }
+           }
+            } else{
+                throw new IllegalArgumentException("menu option not implemented!!");
+            }
 
-        return true;
+            return true;
+        }
     }
-}
+

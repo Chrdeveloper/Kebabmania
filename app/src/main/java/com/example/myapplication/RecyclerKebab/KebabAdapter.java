@@ -17,7 +17,7 @@ public class KebabAdapter  extends RecyclerView.Adapter<KebabViewHolder>{
     private KebabList kebabList;
 
     public KebabAdapter(KebabList kebabList) {
-
+        this.kebabList = kebabList;
     }
 
     @NonNull

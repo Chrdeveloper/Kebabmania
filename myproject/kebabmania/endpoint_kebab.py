@@ -3,7 +3,7 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from kebabmania.models import Kebab, Usuario, Opiniones
+from kebabmania.models import Kebab, Usuario, Opiniones, Ciudad
 
 
 @csrf_exempt
@@ -22,14 +22,19 @@ def kebabcity (request, cityId):
 
 
             json_row = row.to_json()
+
+
+            ciudad_json_row = Ciudad.objects.get(id=json_row['id_ciudad'])
             media = 0
-            all_rows = Opiniones.object.filter(id_kebab=row)
+            all_rows = Opiniones.objects.filter(id_kebab=json_row['id'])
             for row_opinion in all_rows:
 
                 opinion_json = row_opinion.to_json()
                 media = media + opinion_json['nota']
             if len(all_rows) > 0 and media > 0:
                 media = media/len(all_rows)
+
+
             json_row['notaMedia'] = media
 
 
@@ -37,6 +42,9 @@ def kebabcity (request, cityId):
 
 
         return JsonResponse(json_response, safe=False)
+
+
+
     if request.method == "POST":
         request_token = request.META.get('HTTP_SESSION_TOKEN')
 

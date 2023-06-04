@@ -30,6 +30,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.RecyclerCity.CityList;
 import com.example.myapplication.RestClient;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 
 
 import org.json.JSONArray;
@@ -47,6 +48,7 @@ public class NewUserFragment extends Fragment {
     private EditText nombre;
     private EditText code;
      Button smsSend;
+     private View view;
      RestClient client;
     private Button register;
     public NewUserFragment() {
@@ -66,7 +68,7 @@ public class NewUserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         context = getContext();
-        View view = inflater.inflate(R.layout.fragment_configlogin, container, false);
+        view = inflater.inflate(R.layout.fragment_configlogin, container, false);
         client = RestClient.getInstance(context);
 
         final int min = 100;
@@ -77,14 +79,18 @@ public class NewUserFragment extends Fragment {
 
 
         telefono = view.findViewById(R.id.newTlfConfig);
+
+
         nombre = view.findViewById(R.id.newNameConfig);
         code = view.findViewById(R.id.codeConfig);
         smsSend = view.findViewById(R.id.botonSms);
 
+
         smsSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendSMS(random);
+                System.out.println(nombre.getText().toString());
+                //sendSMS(random);
             }
         });
 

@@ -1,4 +1,4 @@
-package com.example.myapplication.Fragments;
+package com.example.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
@@ -39,11 +39,9 @@ public class KebabDetail extends AppCompatActivity {
     Spinner spinner;
     private RecyclerView recyclerViewPlato;
 
-    public void setFoodList(FoodList foodList){
-        this.foodList = foodList;
+    public void setFoodList(){
         recyclerViewPlato = findViewById(R.id.recyclerFood);
-        FoodAdapter foodAdapter = new FoodAdapter(foodList);
-        recyclerViewPlato.setAdapter(foodAdapter);
+        recyclerViewPlato.setAdapter(new FoodAdapter(foodList));
         recyclerViewPlato.setLayoutManager(new LinearLayoutManager(context));
 
     }
@@ -60,7 +58,7 @@ public class KebabDetail extends AppCompatActivity {
         lugar = findViewById(R.id.LugarKebabDetail);
         nota = findViewById(R.id.PuntuacionKebabDetail);
         context = this;
-
+        client = RestClient.getInstance(context);
         nombre.setText(intent.getStringExtra("NOMBRE_KEBAB"));
 
         lugar.setText(intent.getStringExtra("LUGAR_KEBAB"));
@@ -74,13 +72,12 @@ public class KebabDetail extends AppCompatActivity {
             public void onResponse(JSONArray response) {
 
                 if (response.length() != 0) {
-                    FoodList foodList = null;
                     try {
                         foodList = new FoodList(response);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
-                    setFoodList(foodList);
+                    setFoodList();
                 }
 
             }
@@ -120,6 +117,7 @@ public class KebabDetail extends AppCompatActivity {
         puntuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("clicked");
                 client.postOpinion(userNota,intent.getStringExtra("ID_KEBAB") ,
                         new Response.Listener<JSONObject>() {
                             @Override

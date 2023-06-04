@@ -16,7 +16,7 @@ public class OpinionAdapter extends RecyclerView.Adapter<OpinionViewHolder>{
     private OpinionList opinionList;
 
     public OpinionAdapter(OpinionList opinionList) {
-
+        this.opinionList = opinionList;
     }
 
 

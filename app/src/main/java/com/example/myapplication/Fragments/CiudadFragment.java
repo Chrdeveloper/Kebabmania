@@ -26,7 +26,7 @@ public class CiudadFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private Context context;
     private RestClient client;
-
+    private View view;
     private CityList  cityList;
     private RecyclerView recyclerViewCity;
 
@@ -43,11 +43,9 @@ public class CiudadFragment extends Fragment {
     }
 
 
-    public void setCityList(CityList cityList, View view){
-        this.cityList = cityList;
+    public void setCityList(){
         recyclerViewCity = view.findViewById(R.id.RecyclerCity);
-        CityAdapter cityAdapter = new CityAdapter(cityList);
-        recyclerViewCity.setAdapter(cityAdapter);
+        recyclerViewCity.setAdapter(new CityAdapter(cityList));
         recyclerViewCity.setLayoutManager(new LinearLayoutManager(context));
 
 
@@ -58,7 +56,7 @@ public class CiudadFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_ciudad, container, false);
+         view = inflater.inflate(R.layout.fragment_ciudad, container, false);
 
         context = getContext();
         client = RestClient.getInstance(context);
@@ -68,15 +66,18 @@ public class CiudadFragment extends Fragment {
         client.getCity(view,  new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
+                try {
+                    System.out.println(response.getJSONObject(0));
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
                 if (response.length() != 0) {
-                    CityList cityList = null;
                     try {
                         cityList = new CityList(response);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
-                    setCityList(cityList, view);
+                    setCityList();
                 }
 
             }
@@ -84,6 +85,7 @@ public class CiudadFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error.networkResponse == null) {
+                    System.out.println(error);
                     Toast.makeText(view.getContext(), "No se pudo establecer la conexión", Toast.LENGTH_SHORT).show();
                 } else {
                     int serverCode = error.networkResponse.statusCode;

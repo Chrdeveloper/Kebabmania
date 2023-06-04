@@ -18,7 +18,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder>{
     private FoodList foodList;
 
     public FoodAdapter(FoodList foodList) {
-
+        this.foodList = foodList;
     }
 
 

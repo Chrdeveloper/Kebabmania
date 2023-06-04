@@ -27,17 +27,16 @@ public class KebabFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private KebabList kebabList;
     private Context context;
+    private View view;
     RestClient client;
     private RecyclerView recyclerViewKebab;
     public KebabFragment() {
         // Required empty public constructor
     }
 
-    public void setKebabList(KebabList kebabList, View view){
-        this.kebabList = kebabList;
-        recyclerViewKebab = view.findViewById(R.id.RecyclerCity);
-        KebabAdapter kebabAdapter = new KebabAdapter(kebabList);
-        recyclerViewKebab.setAdapter(kebabAdapter);
+    public void setKebabList(){
+        recyclerViewKebab = view.findViewById(R.id.recyclerOferta);
+        recyclerViewKebab.setAdapter(new KebabAdapter(kebabList));
         recyclerViewKebab.setLayoutManager(new LinearLayoutManager(context));
 
     }
@@ -53,7 +52,7 @@ public class KebabFragment extends Fragment {
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_kebab, container, false);
+        view = inflater.inflate(R.layout.fragment_kebab, container, false);
         context = getContext();
         client = RestClient.getInstance(context);
         recyclerViewKebab = view.findViewById(R.id.recyclerOferta);
@@ -63,13 +62,12 @@ public class KebabFragment extends Fragment {
             public void onResponse(JSONArray response) {
 
                 if (response.length() != 0) {
-                    KebabList cityList = null;
                     try {
                         kebabList = new KebabList(response);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
-                    setKebabList(kebabList, view);
+                    setKebabList();
                 }
 
             }
