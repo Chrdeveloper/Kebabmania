@@ -13,7 +13,7 @@ def crearsesion(request):
         return JsonResponse({'error': 'Unsupported HTTP method'}, status=405)
 
     body_json = json.loads(request.body)
-    json_nombre = body_json.get('email', None)
+    json_nombre = body_json.get('nombre', None)
     json_telefono = body_json.get('telefono', None)
 
     if json_nombre is None or json_telefono is None:
@@ -28,7 +28,7 @@ def crearsesion(request):
     user.token = random_token
     user.save()
 
-    return JsonResponse({"user_session_token": random_token, "user_tlf": user.tlf}, status=201)
+    return JsonResponse({"user_session_token": random_token, "user_tlf": user.telefono, "user_name": user.nombre}, status=201)
 
 def keep_login(request):
     #Si el metodo no es un get saltara un error

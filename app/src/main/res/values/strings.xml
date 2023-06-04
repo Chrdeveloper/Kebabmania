@@ -8,5 +8,6 @@
     <string name="app_name">Kebabmania</string>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
+    <string name="configlogin_fragment">Registro</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

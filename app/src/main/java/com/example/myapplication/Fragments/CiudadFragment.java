@@ -43,7 +43,7 @@ public class CiudadFragment extends Fragment {
     }
 
 
-    public void setProgenitorList(CityList cityList, View view){
+    public void setCityList(CityList cityList, View view){
         this.cityList = cityList;
         recyclerViewCity = view.findViewById(R.id.RecyclerCity);
         CityAdapter cityAdapter = new CityAdapter(cityList);
@@ -76,7 +76,7 @@ public class CiudadFragment extends Fragment {
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
-                    setProgenitorList(cityList, view);
+                    setCityList(cityList, view);
                 }
 
             }
