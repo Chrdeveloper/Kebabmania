@@ -19,7 +19,7 @@ from django.urls import path
 
 from kebabmania import endpoint_user, endpoint_log, endpoint_opinion, endpoint_kebab, endpoint_city, endpoint_food, \
     endpoint_home
-
+#Las Url del api rest
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/<str:tlf>', endpoint_user.editarborrar),

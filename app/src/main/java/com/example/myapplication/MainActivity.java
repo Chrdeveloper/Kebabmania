@@ -38,12 +38,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
 
-
+        //Creacion de la barra del layor layout y la toolbar
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-
+        //Si no hay ninguna instancia guardada ira a la determinada
         if (savedInstanceState == null)
+            //Si cityId es nulo ira al fragmentCiudades
             if (preferences.getString("cityId", "-1").equalsIgnoreCase("-1") || preferences.getString("userToken", "-1").equalsIgnoreCase("-1") ) {
                 itemSavedId = 1;
             } else {
@@ -110,8 +111,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
         View view;
         int itemId = item.getItemId();
+        //Dependiendo de la opcion seleccionada ira a un sitio o a otro
         if (itemId == R.id.inicio) {
-
+            //Si intenta ir a Home sin usuario no le dejara
             if (preferences.getString("userToken", "-1").equalsIgnoreCase("-1")) {
                 Toast.makeText(context, "No tienes usuario", Toast.LENGTH_SHORT).show();
 
@@ -147,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             drawerLayout.closeDrawer(GravityCompat.START);
         } else if (itemId == R.id.Kebabs) {
+            //Si no ha elegido ciudad no le dejara entrar
             if (preferences.getString("cityId", "-1").equalsIgnoreCase("-1")) {
                 Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
 
@@ -167,11 +170,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawerLayout.closeDrawer(GravityCompat.START);
             }
         } else if (itemId == R.id.Configuracion) {
+
+            //Si no ha elegido ciudad no le dejara entrar
             if (preferences.getString("cityId", "-1").equalsIgnoreCase("-1")) {
                 Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
 
             } else {
                 itemSavedId = 2;
+                //Si no tiene usuario guardado ira a New User
                 if (!preferences.getString("userToken", "-1").equalsIgnoreCase("-1")) {
                     title = R.string.configuration_fragment;
                     Fragment extraFragment = ConfigurationFragment.newInstance(getString(title));
@@ -200,6 +206,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         } else if (itemId == R.id.delete) {
+            //Si no ha elegido ciudad no le dejara entrar
             if (preferences.getString("cityId", "-1").equalsIgnoreCase("-1")) {
                 Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
 

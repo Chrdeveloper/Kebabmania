@@ -70,7 +70,7 @@ public class NewUserFragment extends Fragment {
         context = getContext();
         view = inflater.inflate(R.layout.fragment_configlogin, container, false);
         client = RestClient.getInstance(context);
-
+        //Crea el codigo de seguridad del usuario
         final int min = 100;
         final int max = 999;
         final int random = new Random().nextInt((max - min) + 1) + min;
@@ -89,9 +89,10 @@ public class NewUserFragment extends Fragment {
         smsSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Una vez pulsa el boton envia metodo que hace el sms
 
-                Toast.makeText(context,String.valueOf(random),Toast.LENGTH_LONG).show();
-                //sendSMS(random);
+               // Toast.makeText(context,String.valueOf(random),Toast.LENGTH_LONG).show();
+                sendSMS(random);
             }
         });
 
@@ -100,7 +101,7 @@ public class NewUserFragment extends Fragment {
 
 
         register = view.findViewById(R.id.botonNew);
-
+        //Crea el usuario en la base de datos
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +113,7 @@ public class NewUserFragment extends Fragment {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
+                                //En caso de crear bien al usuario enviara otra peticion para conseguir el token y los datos
                                 Toast.makeText(context, "Usuario registrado", Toast.LENGTH_LONG).show();
                                 client.getToken(telefono.getText().toString(),
                                         new Response.Listener<JSONObject>() {
@@ -119,6 +121,7 @@ public class NewUserFragment extends Fragment {
                                     public void onResponse(JSONObject response) {
                                         String receivedToken, receivedTelefono, receivedNombre;
                                         try {
+
                                             receivedToken = response.getString("user_session_token"); // Obtiene el token generado aleatoriamente
                                             receivedTelefono = response.getString("user_tlf"); // Obtiene el token generado aleatoriamente
                                             receivedNombre = response.getString("user_name"); // Obtiene el token generado aleatoriamente
@@ -126,7 +129,7 @@ public class NewUserFragment extends Fragment {
                                         } catch (JSONException e) {
                                             throw new RuntimeException(e);
                                         }
-
+                                        //Escribe los datos en las sharedpreferences
                                         SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
                                         SharedPreferences.Editor editor = preferences.edit();
                                         editor.putString("userToken", receivedToken);
@@ -210,7 +213,7 @@ public class NewUserFragment extends Fragment {
         SmsManager smsManager = SmsManager.getDefault();
         ActivityCompat.requestPermissions(getActivity(),new String[] { Manifest.permission.SEND_SMS}, 1);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            smsManager.sendTextMessage(telefono.getText().toString(), null, String.valueOf(random), null, null);
+            smsManager.sendTextMessage("+34"+telefono.getText().toString(), null, String.valueOf(random), null, null);
         }
         Toast.makeText(getActivity(),"SMS Sent", Toast.LENGTH_LONG).show();
     }

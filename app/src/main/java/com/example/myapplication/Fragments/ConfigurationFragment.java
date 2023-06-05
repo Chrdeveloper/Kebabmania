@@ -38,6 +38,7 @@ public class ConfigurationFragment extends Fragment {
     private OpinionList  opinionList;
 
     RecyclerView recyclerViewOpinion;
+    //Setea el recyclerview
     public void setOpinionList(){
 
         recyclerViewOpinion = view.findViewById(R.id.recyclerOpinions);
@@ -67,7 +68,7 @@ public class ConfigurationFragment extends Fragment {
         context = getContext();
         SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
         client = RestClient.getInstance(context);
-
+        //Vincular elementos del xml
         nombreUser = view.findViewById(R.id.nombreConfig);
 
         nombreUser.setText(preferences.getString("userName","Missing"));
@@ -75,6 +76,7 @@ public class ConfigurationFragment extends Fragment {
         recyclerViewOpinion = view.findViewById(R.id.recyclerOpinions);
 
         client.getOpinion(view,  new Response.Listener<JSONArray>() {
+            //Pilla el recylerview
             @Override
             public void onResponse(JSONArray response) {
                 System.out.println(response);
@@ -91,6 +93,7 @@ public class ConfigurationFragment extends Fragment {
         },                 new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                //Codigos de error
                 if (error.networkResponse == null) {
                     Toast.makeText(view.getContext(), "No se pudo establecer la conexión", Toast.LENGTH_SHORT).show();
                 } else {

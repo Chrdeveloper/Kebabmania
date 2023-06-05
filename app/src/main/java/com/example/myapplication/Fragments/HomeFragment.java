@@ -63,11 +63,11 @@ public class HomeFragment extends Fragment {
         context= getActivity();
         client = RestClient.getInstance(context);
 
-
+        //Llamada y vinculaciond el xml
         client.getHome(view,  new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                System.out.println(response);
+                //Si va bien pilla la info del responde y procede a darle la informacion a cada campo del xml
                 nombreKebabOpinion = view.findViewById(R.id.nombreOpinion);
                 nombreUsuarioOpinion = view.findViewById(R.id.nombreKebabOpinion);
                 notaOpinion = view.findViewById(R.id.descripcionOpinion);
@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
                     try {
                         jsonObjectOpinion = response.getJSONObject(0);
                         jsonObjectKebab = response.getJSONObject(1);
-
+                        //En caso de no haber informacion dara datos determinados
                         if(jsonObjectOpinion.getString("nombreKebab") != "wrong") {
                             nombreKebabOpinion.setText(jsonObjectOpinion.getString("nombreKebab"));
                             nombreUsuarioOpinion.setText(jsonObjectOpinion.getString("nombreUsuario"));
@@ -95,6 +95,7 @@ public class HomeFragment extends Fragment {
                             nombreKebabKebab.setText(jsonObjectKebab.getString("nombre"));
                             lugarKebab.setText(jsonObjectKebab.getString("lugar"));
                         }else{
+
                             nombreKebabOpinion.setText("unknown");
                             nombreUsuarioOpinion.setText("unknown");
 
@@ -115,6 +116,8 @@ public class HomeFragment extends Fragment {
 
             }
         },                 new Response.ErrorListener() {
+            //Codigos de errores
+
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error.networkResponse == null) {

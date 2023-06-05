@@ -2,7 +2,7 @@ from django.http import JsonResponse
 
 from kebabmania.models import Ciudad
 
-
+ #Recoge todas las ciudades
 def allcity(request):
     if request.method != "GET":
         return JsonResponse({'error': 'Unsupported HTTP method'}, status=405)
