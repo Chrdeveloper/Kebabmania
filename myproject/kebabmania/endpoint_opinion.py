@@ -17,7 +17,7 @@ def opinions (request, tlf):
         return JsonResponse({"error": "Unauthorized"}, status=401)
 
 
-    # Si el verbo es un get entrara aqui
+    # Si el verbo es un get entrara aqui y recibira todas las opiniones de un usuario en concreto
     if request.method == "GET":
 
         usuario = Usuario.objects.get(telefono=tlf)
@@ -41,7 +41,7 @@ def opinions (request, tlf):
             json_response.append(opinion_json)
 
         return JsonResponse(json_response, safe=False)
-
+    #Enviara una peticion post para crear una nueva opinion
     elif request.method == "POST":
         usuario = Usuario.objects.get(telefono=tlf)
         json_body = json.loads(request.body)

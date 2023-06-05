@@ -33,6 +33,7 @@ public class CiudadFragment extends Fragment {
     public CiudadFragment() {
 
     }
+
     public static CiudadFragment newInstance(String param1) {
         CiudadFragment fragment = new CiudadFragment();
         Bundle args = new Bundle();
@@ -42,7 +43,7 @@ public class CiudadFragment extends Fragment {
         return fragment;
     }
 
-
+    //Setea el recyclerview
     public void setCityList(){
         recyclerViewCity = view.findViewById(R.id.RecyclerCity);
         recyclerViewCity.setAdapter(new CityAdapter(cityList));
@@ -59,14 +60,15 @@ public class CiudadFragment extends Fragment {
          view = inflater.inflate(R.layout.fragment_ciudad, container, false);
 
         context = getContext();
+        //Consigue la instancia de RestClient
         client = RestClient.getInstance(context);
-
+        //Vincular elementos del xml
         recyclerViewCity = view.findViewById(R.id.RecyclerCity);
-
+        //Envia la peticion al endpoint mediante el metodo
         client.getCity(view,  new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
+                //Si va bien, pillara el response y empezara a crear el recyclerview
 
 
                 if (response.length() != 0) {
@@ -75,6 +77,7 @@ public class CiudadFragment extends Fragment {
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
+
                     setCityList();
                 }
 
@@ -82,6 +85,7 @@ public class CiudadFragment extends Fragment {
         },                 new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                //Codigos de error
                 if (error.networkResponse == null) {
                     System.out.println(error);
                     Toast.makeText(view.getContext(), "No se pudo establecer la conexión", Toast.LENGTH_SHORT).show();

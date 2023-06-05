@@ -5,6 +5,7 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.speech.SpeechRecognizer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,11 +47,14 @@ public class DeleteFragment extends Fragment {
         SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         client = RestClient.getInstance(context);
+        //Vinculacion de elementos del xml
         deleteButton = view.findViewById(R.id.botonDelete);
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                //Si el usuario no tiene usuario no le dejara enviar la peticion
                 if (preferences.getString("userTelefono", "0").equalsIgnoreCase("0")) {
                     Toast.makeText(context, "User unrecheable", Toast.LENGTH_LONG).show();
                 } else {
@@ -59,6 +63,7 @@ public class DeleteFragment extends Fragment {
                     Response.Listener<JSONObject> response = new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            //Una vez el usuario borrado en la base de datos esto elimina los campos de las sharedpreferences
                             editor.remove("userTelefono");
                             editor.remove("userToken");
                             editor.remove("userName");

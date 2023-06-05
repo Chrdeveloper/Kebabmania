@@ -33,7 +33,7 @@ public class KebabFragment extends Fragment {
     public KebabFragment() {
         // Required empty public constructor
     }
-
+    //Setea el recyclerview
     public void setKebabList(){
         recyclerViewKebab = view.findViewById(R.id.recyclerOferta);
         recyclerViewKebab.setAdapter(new KebabAdapter(kebabList));

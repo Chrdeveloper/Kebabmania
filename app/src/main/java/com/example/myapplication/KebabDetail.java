@@ -54,7 +54,7 @@ public class KebabDetail extends AppCompatActivity {
         setContentView(R.layout.activity_kebab_detail);
 
         Intent intent = getIntent();
-
+        //Vinculacion de los elementos xml
         nombre = findViewById(R.id.tituloKebabDetail);
         lugar = findViewById(R.id.LugarKebabDetail);
         nota = findViewById(R.id.PuntuacionKebabDetail);
@@ -68,7 +68,7 @@ public class KebabDetail extends AppCompatActivity {
         nota.setText(intent.getStringExtra("NOTA_KEBAB"));
 
 
-
+        //Envia la peticion para recibir los platos del durum
         client.getFood(  new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -103,7 +103,7 @@ public class KebabDetail extends AppCompatActivity {
 
         spinner = findViewById(R.id.score_spinner);
 
-
+        //Crea el spinner de la pagina
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.score_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -115,7 +115,7 @@ public class KebabDetail extends AppCompatActivity {
 
 
         puntuar = findViewById(R.id.botonOpinion);
-
+        //Envia la puntuacion del usuario con los datos del spinner
         puntuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

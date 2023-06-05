@@ -6,6 +6,7 @@ from kebabmania.models import Usuario, Opiniones, Kebab, Ciudad
 
 
 def home(request):
+    #Seguridad donde pilla el token del usuario y lo compara
     request_token = request.META.get('HTTP_SESSION_TOKEN')
 
     if request_token is None:
@@ -14,11 +15,11 @@ def home(request):
         user = Usuario.objects.get(token=request_token)
     except Usuario.DoesNotExist:
         return JsonResponse({"error": "Unauthorized"}, status=401)
-
+    #Si es distinto a GET sale del metodo con un error
     if request.method != "GET":
         return JsonResponse({'error': 'Unsupported HTTP method'}, status=405)
 
-
+    #Recoge el ultimo comentario en base al id y lo mete en un jsonObject, para el kebab usa un random.
     all_opinion = Opiniones.objects.filter(id_usuario=user)
     user_json = user.to_json()
     if len(all_opinion) == 0:

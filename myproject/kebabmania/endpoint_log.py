@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from kebabmania.models import Usuario
 
-
+#Crea una sesion para el usuario y crea un tokon, devuelve toda la informacion del usuario
 @csrf_exempt
 def crearsesion(request):
     if request.method != 'POST':

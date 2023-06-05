@@ -43,7 +43,7 @@ def kebabcity (request, cityId):
 
         return JsonResponse(json_response, safe=False)
 
-
+    #Metodo no usado pero mantenido para un posible futuri
 
     if request.method == "POST":
         request_token = request.META.get('HTTP_SESSION_TOKEN')

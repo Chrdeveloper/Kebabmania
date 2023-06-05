@@ -8,6 +8,7 @@ from kebabmania.models import Usuario
 
 
 @csrf_exempt
+#De momento solo esta la funcion de borrar usuario borrandolo de la base de datos
 def editarborrar(request, tlf):
     if tlf == None:
         return JsonResponse({"error": "Missing a param"}, status=400)
@@ -41,7 +42,7 @@ def editarborrar(request, tlf):
         return JsonResponse({'error': 'Unsupported HTTP method'}, status=405)
 
 
-
+#Crea un usuario
 @csrf_exempt
 def crear(request):
     if request.method != 'POST':

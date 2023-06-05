@@ -48,6 +48,7 @@ public class RestClient {
         }
         return singleton;
     }
+    //Todas las peticiones se envian desde esta unica clase que tiene metodos que se llaman desde las otras clases
 
     public void getCity(View view, Response.Listener<JSONArray> respuesta, Response.ErrorListener errorResponse) {
 
