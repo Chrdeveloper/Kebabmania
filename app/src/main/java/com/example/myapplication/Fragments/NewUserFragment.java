@@ -89,7 +89,8 @@ public class NewUserFragment extends Fragment {
         smsSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println(nombre.getText().toString());
+
+                Toast.makeText(context,String.valueOf(random),Toast.LENGTH_LONG).show();
                 //sendSMS(random);
             }
         });
@@ -103,6 +104,10 @@ public class NewUserFragment extends Fragment {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (code.getText().toString().equalsIgnoreCase(String.valueOf(random))){
+                    Toast.makeText(context,"Wrong code",Toast.LENGTH_LONG).show();
+
+                }
                 client.newUser(telefono.getText().toString(), nombre.getText().toString(),
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -131,13 +136,14 @@ public class NewUserFragment extends Fragment {
 
                                         editor.commit();
 
-                                        getParentFragmentManager().beginTransaction().remove(NewUserFragment.this).commit();
+                                        Toast.makeText(context, "Vuelve a home", Toast.LENGTH_LONG).show();
 
                                     }
                                 },
                                         new Response.ErrorListener() {
                                             @Override
                                             public void onErrorResponse(VolleyError error) {
+
                                                 if (error.networkResponse == null) {
                                                     Toast.makeText(context, "No se pudo establecer la conexión", Toast.LENGTH_LONG).show();
                                                 } else {

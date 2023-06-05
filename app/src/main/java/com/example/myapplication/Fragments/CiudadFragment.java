@@ -66,11 +66,9 @@ public class CiudadFragment extends Fragment {
         client.getCity(view,  new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                try {
-                    System.out.println(response.getJSONObject(0));
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
+
+
+
                 if (response.length() != 0) {
                     try {
                         cityList = new CityList(response);

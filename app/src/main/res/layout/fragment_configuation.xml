@@ -40,7 +40,7 @@
         android:textSize="40dp"
         android:textColor="@color/amarillo"
         />
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:id="@+id/recyclerOpinion"
@@ -48,12 +48,12 @@
         android:layout_marginTop="10dp"
         >
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recyclerOpinions"/>
 
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

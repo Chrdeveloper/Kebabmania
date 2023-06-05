@@ -32,18 +32,17 @@ public class ConfigurationFragment extends Fragment {
 
     private Context context;
     private TextView nombreUser;
+    private View view;
     RestClient client;
 
     private OpinionList  opinionList;
 
     RecyclerView recyclerViewOpinion;
-    public void setOpinionList(OpinionList opinionList, View view){
-        this.opinionList = opinionList;
-        recyclerViewOpinion = view.findViewById(R.id.RecyclerCity);
-        OpinionAdapter opinionAdapter = new OpinionAdapter(opinionList);
-        recyclerViewOpinion.setAdapter(opinionAdapter);
-        recyclerViewOpinion.setLayoutManager(new LinearLayoutManager(context));
+    public void setOpinionList(){
 
+        recyclerViewOpinion = view.findViewById(R.id.recyclerOpinions);
+        recyclerViewOpinion.setAdapter(new OpinionAdapter(opinionList));
+        recyclerViewOpinion.setLayoutManager(new LinearLayoutManager(context));
 
 
 
@@ -62,30 +61,30 @@ public class ConfigurationFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_configuation, container, false);
-        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
+        view = inflater.inflate(R.layout.fragment_configuation, container, false);
+
 
         context = getContext();
+        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
         client = RestClient.getInstance(context);
 
         nombreUser = view.findViewById(R.id.nombreConfig);
 
         nombreUser.setText(preferences.getString("userName","Missing"));
 
-        recyclerViewOpinion = view.findViewById(R.id.recyclerOpinion);
+        recyclerViewOpinion = view.findViewById(R.id.recyclerOpinions);
 
         client.getOpinion(view,  new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
+                System.out.println(response);
                 if (response.length() != 0) {
-                    OpinionList opinionList = null;
                     try {
                         opinionList = new OpinionList(response);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
-                    setOpinionList(opinionList, view);
+                    setOpinionList();
                 }
 
             }

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         if (savedInstanceState == null)
-            if (preferences.getString("cityId", "-1").equalsIgnoreCase("-1")) {
+            if (preferences.getString("cityId", "-1").equalsIgnoreCase("-1") || preferences.getString("userToken", "-1").equalsIgnoreCase("-1") ) {
                 itemSavedId = 1;
             } else {
                 itemSavedId = 0;
@@ -112,17 +112,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int itemId = item.getItemId();
         if (itemId == R.id.inicio) {
 
-            if (preferences.getString("cityId", "-1").equalsIgnoreCase("-1")) {
-                Toast.makeText(context, "No has elegido ciudad", Toast.LENGTH_SHORT).show();
+            if (preferences.getString("userToken", "-1").equalsIgnoreCase("-1")) {
+                Toast.makeText(context, "No tienes usuario", Toast.LENGTH_SHORT).show();
 
             } else {
                 itemSavedId = 0;
                 title = R.string.home_fragment;
-                Fragment fragment = HomeFragment.newInstance(getString(title));
+                Fragment homefragment = HomeFragment.newInstance(getString(title));
                 getSupportFragmentManager()
                         .beginTransaction()
 
-                        .replace(R.id.home_content, fragment)
+                        .replace(R.id.home_content, homefragment)
                         .commit();
 
 
@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         } else if (itemId == R.id.ciudades) {
+
             itemSavedId = 1;
             title = R.string.ciudad_fragment;
             Fragment newsFragment = CiudadFragment.newInstance(getString(title));
@@ -171,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             } else {
                 itemSavedId = 2;
-                if (preferences.getInt("log", 0) == 1) {
+                if (!preferences.getString("userToken", "-1").equalsIgnoreCase("-1")) {
                     title = R.string.configuration_fragment;
                     Fragment extraFragment = ConfigurationFragment.newInstance(getString(title));
                     getSupportFragmentManager()

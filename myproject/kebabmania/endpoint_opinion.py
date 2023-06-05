@@ -23,7 +23,7 @@ def opinions (request, tlf):
         usuario = Usuario.objects.get(telefono=tlf)
 
 
-        all_rows = Opiniones.object.filter(id_usuario=usuario)
+        all_rows = Opiniones.objects.filter(id_usuario=usuario)
 
         json_response = []
 
@@ -36,10 +36,7 @@ def opinions (request, tlf):
             kebab = Kebab.objects.get(id=json_row['id_kebab'])
 
             kebab_json = kebab.to_json()
-            opinion_json = []
-            opinion_json['nombre_kebab'] = kebab_json['nombre']
-
-            opinion_json['nota'] = json_row['nota']
+            opinion_json = {'nombre_kebab':kebab_json['nombre'], 'nota':str (json_row['nota']) }
 
             json_response.append(opinion_json)
 

@@ -23,9 +23,9 @@ public class OpinionViewHolder extends RecyclerView.ViewHolder{
     public OpinionViewHolder(@NonNull View itemView) {
         super(itemView);
         Context context = itemView.getContext();
-        nombre = itemView.findViewById(R.id.nombreKebabOpinion);
+        nombre = itemView.findViewById(R.id.kebabOpinion);
 
-        nota = itemView.findViewById(R.id.puntuationOpinion);
+        nota = itemView.findViewById(R.id.testOpinion);
 
 
 
@@ -37,9 +37,9 @@ public class OpinionViewHolder extends RecyclerView.ViewHolder{
 
     public void showOpinion(Opinion opinion){
         this.opinion = opinion;
-        nota.setText(opinion.getNota());
-        nombre.setText(opinion.getNombre());
 
+        nombre.setText(opinion.getNombre());
+        nota.setText(opinion.getNota());
 
     }
 }

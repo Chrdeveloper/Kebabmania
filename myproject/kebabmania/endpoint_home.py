@@ -19,29 +19,31 @@ def home(request):
         return JsonResponse({'error': 'Unsupported HTTP method'}, status=405)
 
 
-    last_opinion = Opiniones.objects.all().order_by('-id')[:1]
-    json_opinion = []
-    if last_opinion is not None:
+    all_opinion = Opiniones.objects.filter(id_usuario=user)
+    user_json = user.to_json()
+    if len(all_opinion) == 0:
+        id_lastop = 0
+    else:
+        id_lastop = Opiniones.objects.filter(id_usuario=user_json['id']).order_by("-id").first()
 
-        json_last_opinion = last_opinion.to_json()
 
-        json_last_opinion_json = json_last_opinion.to_json()
+    if id_lastop != 0:
+        id_lastop_json = id_lastop.to_json()
+        last_opinion = Opiniones.objects.get(id=id_lastop_json['id'])
+
+        json_last_opinion_json = last_opinion.to_json()
         kebab_nombre_opinion = Kebab.objects.get(id=json_last_opinion_json['id_kebab'])
         kebab_nombre_opinion_json = kebab_nombre_opinion.to_json()
-        json_opinion['nombreKebab'] = kebab_nombre_opinion_json['nombre']
-        json_opinion['nota'] = str (json_last_opinion_json['nota'])
         usuario_nombre_opinion = Usuario.objects.get(id=json_last_opinion_json['id_usuario'])
         usuario_nombre_opinion_json = usuario_nombre_opinion.to_json()
 
-        json_opinion['nombreUsuario'] = usuario_nombre_opinion_json['nombre']
+
+        json_opinion = {'nombreKebab': kebab_nombre_opinion_json['nombre'], 'nota': str (json_last_opinion_json['nota']), 'nombreUsuario': usuario_nombre_opinion_json['nombre']}
 
 
 
     else:
-        json_opinion['nombreKebab'] = 'Unknown'
-        json_opinion['nota'] = '0'
-        json_opinion['nombreUsuario'] = 'Unknown'
-
+        json_opinion = {'nombreKebab': 'Unknown', 'nota': '0', 'nombreUsuario': 'Unknown'}
 
     json_response = []
 
@@ -50,7 +52,7 @@ def home(request):
 
     all_kebab = Kebab.objects.all()
 
-    random_number = random.randint(0, len(all_kebab))
+    random_number = random.randint(1, len(all_kebab))
 
 
     random_kebab = Kebab.objects.get(id=random_number)

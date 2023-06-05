@@ -56,6 +56,7 @@ class Opiniones(models.Model):
     nota = models.IntegerField()
     def to_json(self):
         return {
+            "id": self.id,
             "id_usuario": self.id_usuario_id,
             "id_kebab": self.id_kebab_id,
             "nota": self.nota

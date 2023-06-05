@@ -13,10 +13,9 @@ def crearsesion(request):
         return JsonResponse({'error': 'Unsupported HTTP method'}, status=405)
 
     body_json = json.loads(request.body)
-    json_nombre = body_json.get('nombre', None)
     json_telefono = body_json.get('telefono', None)
 
-    if json_nombre is None or json_telefono is None:
+    if json_telefono is None:
         return JsonResponse({"error": "Missing parameter"}, status=400)
 
     try:

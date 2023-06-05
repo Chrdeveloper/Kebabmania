@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment {
     private RestClient client;
     private Context context;
 
-    private TextView nombre;
+
     private TextView nombreKebabOpinion;
     private TextView nombreUsuarioOpinion;
     private TextView notaOpinion;
@@ -57,23 +57,27 @@ public class HomeFragment extends Fragment {
 
 
 
-        view = inflater.inflate(R.layout.fragment_ciudad, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
         context= getActivity();
         client = RestClient.getInstance(context);
-        nombreKebabOpinion = view.findViewById(R.id.nombreOpinion);
-        nombreUsuarioOpinion = view.findViewById(R.id.nombreKebabOpinion);
-        notaOpinion = view.findViewById(R.id.descripcionOpinion);
-        ciudadKebab = view.findViewById(R.id.ciudadrecommendedKebab);
-        nombreKebabKebab = view.findViewById(R.id.nombreKebab);
-        lugarKebab = view.findViewById(R.id.lugarrecommendedKebab);
 
-        client.getCity(view,  new Response.Listener<JSONArray>() {
+
+        client.getHome(view,  new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                System.out.println(response);
+                nombreKebabOpinion = view.findViewById(R.id.nombreOpinion);
+                nombreUsuarioOpinion = view.findViewById(R.id.nombreKebabOpinion);
+                notaOpinion = view.findViewById(R.id.descripcionOpinion);
+                ciudadKebab = view.findViewById(R.id.ciudadrecommendedKebab);
+                nombreKebabKebab = view.findViewById(R.id.nombreKebab);
+                lugarKebab = view.findViewById(R.id.lugarrecommendedKebab);
+                System.out.print(response.length());
                 if(response.length() != 2){
                     Toast.makeText(context,"Wrong information recieved", Toast.LENGTH_LONG);
+
                 }else{
                     JSONObject jsonObjectOpinion = new JSONObject();
                     JSONObject jsonObjectKebab = new JSONObject();
@@ -81,14 +85,26 @@ public class HomeFragment extends Fragment {
                         jsonObjectOpinion = response.getJSONObject(0);
                         jsonObjectKebab = response.getJSONObject(1);
 
-                        nombreKebabOpinion.setText(jsonObjectOpinion.getString("nombreKebab"));
-                        nombreUsuarioOpinion.setText(jsonObjectOpinion.getString("nombreUsuario"));
+                        if(jsonObjectOpinion.getString("nombreKebab") != "wrong") {
+                            nombreKebabOpinion.setText(jsonObjectOpinion.getString("nombreKebab"));
+                            nombreUsuarioOpinion.setText(jsonObjectOpinion.getString("nombreUsuario"));
 
-                        notaOpinion.setText(jsonObjectOpinion.getString("nota"));
+                            notaOpinion.setText(jsonObjectOpinion.getString("nota"));
 
-                        ciudadKebab.setText(jsonObjectKebab.getString("nom_ciudad"));
-                        nombreKebabKebab.setText(jsonObjectKebab.getString("nombre"));
-                        lugarKebab.setText(jsonObjectKebab.getString("lugar"));
+                            ciudadKebab.setText(jsonObjectKebab.getString("nom_ciudad"));
+                            nombreKebabKebab.setText(jsonObjectKebab.getString("nombre"));
+                            lugarKebab.setText(jsonObjectKebab.getString("lugar"));
+                        }else{
+                            nombreKebabOpinion.setText("unknown");
+                            nombreUsuarioOpinion.setText("unknown");
+
+                            notaOpinion.setText("unknown");
+
+                            ciudadKebab.setText("unknown");
+                            nombreKebabKebab.setText("unknown");
+                            lugarKebab.setText("unknown");
+
+                        }
 
                     } catch (JSONException e) {
                         throw new RuntimeException(e);

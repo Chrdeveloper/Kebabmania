@@ -23,7 +23,7 @@ from kebabmania import endpoint_user, endpoint_log, endpoint_opinion, endpoint_k
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/<str:tlf>', endpoint_user.editarborrar),
-    path('user/new', endpoint_user.crear),
+    path('user', endpoint_user.crear),
     path('login', endpoint_log.crearsesion),
     path('log', endpoint_log.keep_login),
     path('opinion/<str:tlf>', endpoint_opinion.opinions),

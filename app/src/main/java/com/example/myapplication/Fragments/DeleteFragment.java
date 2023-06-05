@@ -63,7 +63,7 @@ public class DeleteFragment extends Fragment {
                             editor.remove("userToken");
                             editor.remove("userName");
                             editor.commit();
-                            Toast.makeText(context, "Hijo eliminado", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "Usuario eliminado", Toast.LENGTH_LONG).show();
 
                         }
                     };
@@ -89,7 +89,7 @@ public class DeleteFragment extends Fragment {
                     }
                 };
 
-                client.deletingUser(preferences.getInt("userTelefono", 0), response, errorListener);
+                client.deletingUser(preferences.getString("userTelefono", "-1"), response, errorListener);
 
             }
             }

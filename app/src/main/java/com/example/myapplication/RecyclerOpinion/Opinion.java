@@ -6,29 +6,29 @@ import org.json.JSONObject;
 public class Opinion {
     String nombre;
 
-    int nota;
+    String nota;
 
     public Opinion(JSONObject jsonObject) {
         try {
-            this.nota = jsonObject.getInt("nota");
-            this.nombre = jsonObject.getString("nombre");
+            this.nota = jsonObject.getString("nota");
+            this.nombre = jsonObject.getString("nombre_kebab");
 
 
         }catch (JSONException jsonException){
             throw new RuntimeException(jsonException);
         }
     }
-    public int getNota() {
-        return nota;
+    public String getNota() {
+        return this.nota;
     }
 
-    public void setNota(int nota) {
+    public void setNota(String nota) {
         this.nota = nota;
     }
 
 
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
 
     public void setNombre(String nombre) {

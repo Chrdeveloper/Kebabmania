@@ -75,17 +75,14 @@ public class RestClient {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
+        System.out.println(requestBody);
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.POST,
-                BASE_URL + "user/new",
+                BASE_URL + "user",
                 requestBody,
                 listener,
                 errorListener
         );
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                5000,
-                0,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         this.queue.add(request);
 
 
@@ -147,7 +144,7 @@ public class RestClient {
 
     }
 
-    public void deletingUser(int telefono, Response.Listener<JSONObject> respuesta, Response.ErrorListener errorResponse){
+    public void deletingUser(String telefono, Response.Listener<JSONObject> respuesta, Response.ErrorListener errorResponse){
         SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
         String token = preferences.getString("userToken", null);
 
@@ -220,7 +217,7 @@ public class RestClient {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-
+        System.out.println(requestBody);
         JsonObjectRequest request = new JsonObjectRequest (
                 Request.Method.POST,
                 BASE_URL +"opinion/"+ preferences.getString("userTelefono", null),
@@ -239,9 +236,33 @@ public class RestClient {
 
         };
 
+        queue.add(request);
 
 
 
+
+    }
+    public void getHome(View view, Response.Listener<JSONArray> respuesta, Response.ErrorListener errorResponse) {
+        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
+        String token = preferences.getString("userToken", null);
+        JsonArrayRequest request = new JsonArrayRequest(
+                Request.Method.GET,
+                BASE_URL + "home",
+                null,
+                respuesta,
+                errorResponse
+        ){
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Session-token", token);
+                return headers;
+            }
+
+
+        };
+
+        queue.add(request);
 
 
     }

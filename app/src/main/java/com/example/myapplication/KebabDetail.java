@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -62,6 +63,7 @@ public class KebabDetail extends AppCompatActivity {
         nombre.setText(intent.getStringExtra("NOMBRE_KEBAB"));
 
         lugar.setText(intent.getStringExtra("LUGAR_KEBAB"));
+        SharedPreferences preferences = context.getSharedPreferences("KEBAB_PREFS", MODE_PRIVATE);
 
         nota.setText(intent.getStringExtra("NOTA_KEBAB"));
 
@@ -110,36 +112,44 @@ public class KebabDetail extends AppCompatActivity {
 
 
 
-        int userNota = spinner.getSelectedItemPosition();
+
 
         puntuar = findViewById(R.id.botonOpinion);
 
         puntuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("clicked");
-                client.postOpinion(userNota,intent.getStringExtra("ID_KEBAB") ,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Toast.makeText(context, "Puntuacion enviada!", Toast.LENGTH_SHORT).show();
-                            }
-                        },                 new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                if (error.networkResponse == null) {
-                                    Toast.makeText(context, "No se pudo establecer la conexión", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    int serverCode = error.networkResponse.statusCode;
-                                    switch (serverCode) {
-                                        case 401:
-                                            Toast.makeText(context,"Peticion no autorizada.", Toast.LENGTH_SHORT).show();
-                                            break;
-                                        default:
-                                            Toast.makeText(context, "Estado de respuesta: "+serverCode, Toast.LENGTH_SHORT).show();
-                                    }                }
-                            }
-                        });
+
+                if (preferences.getString("userToken", "-1").equalsIgnoreCase("-1")) {
+                    Toast.makeText(context, "Registrate antes de puntuar un local", Toast.LENGTH_LONG).show();
+                } else {
+
+                    int userNota = spinner.getSelectedItemPosition();
+
+                    client.postOpinion(userNota, intent.getStringExtra("ID_KEBAB"),
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Toast.makeText(context, "Puntuacion enviada!", Toast.LENGTH_SHORT).show();
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    if (error.networkResponse == null) {
+                                        Toast.makeText(context, "No se pudo establecer la conexión", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        int serverCode = error.networkResponse.statusCode;
+                                        switch (serverCode) {
+                                            case 401:
+                                                Toast.makeText(context, "Peticion no autorizada.", Toast.LENGTH_SHORT).show();
+                                                break;
+                                            default:
+                                                Toast.makeText(context, "Estado de respuesta: " + serverCode, Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                            });
+                }
             }
         });
 

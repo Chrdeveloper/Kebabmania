@@ -42,16 +42,15 @@ def editarborrar(request, tlf):
 
 
 
-
+@csrf_exempt
 def crear(request):
-
     if request.method != 'POST':
         return JsonResponse({'error': 'Unsupported HTTP method'}, status=405)
 
 
     body = json.loads(request.body)
     new_nombre = body.get('nombre', None)
-    new_telefono = body.get('tlf', None)
+    new_telefono = body.get('telefono', None)
 
     if new_nombre is None or new_telefono is None:
         return JsonResponse({'error': 'Missing parameter in request body'}, status=400)
@@ -69,7 +68,7 @@ def crear(request):
     else:
         new_id = object.getId() + 1  # De no ser nulo coge el mayor número de socio, le suma 1 y lo
 
-    new_usuario = Usuario(nombre=new_telefono, telefono=new_telefono, token=None)
+    new_usuario = Usuario(id=new_id,nombre=new_nombre, telefono=new_telefono, token=None)
     new_usuario.save()
 
     return JsonResponse({'created': 'True'}, status=201)
