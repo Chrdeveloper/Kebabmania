@@ -17,6 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from kebabmania import endpoint_user, endpoint_log, endpoint_opinion, endpoint_kebab, endpoint_city, endpoint_food, \
+    endpoint_home
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('user/<str:tlf>', endpoint_user.editarborrar),
+    path('user', endpoint_user.crear),
+    path('login', endpoint_log.crearsesion),
+    path('log', endpoint_log.keep_login),
+    path('opinion/<str:tlf>', endpoint_opinion.opinions),
+    path('kebabs/<int:cityId>', endpoint_kebab.kebabcity),
+    path('cities', endpoint_city.allcity),
+    path('food', endpoint_food.allfood),
+    path('home', endpoint_home.home)
 ]

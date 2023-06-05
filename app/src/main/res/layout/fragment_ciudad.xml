@@ -20,20 +20,7 @@
 
 
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:hint="Escribe la ciudad en la que quieras buscar"
-        app:layout_constraintTop_toBottomOf="@id/logoHome"
-        android:layout_marginTop="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/white"
-        android:id="@+id/editSearcher"
-        >
 
-
-    </EditText>
 
     <TextView
         android:id="@+id/textSearcher"
@@ -48,8 +35,8 @@
         android:textColor="#CDDC39"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editSearcher" />
-    <androidx.core.widget.NestedScrollView
+        app:layout_constraintTop_toBottomOf="@id/logoHome" />
+    <ScrollView
         android:layout_width="300dp"
         android:layout_height="300dp"
         app:layout_constraintTop_toBottomOf="@id/textSearcher"
@@ -63,15 +50,7 @@
             android:id="@+id/RecyclerCity">
 
         </androidx.recyclerview.widget.RecyclerView>
-    </androidx.core.widget.NestedScrollView>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Buscar!"
-        app:layout_constraintTop_toBottomOf="@id/scrollReviwerCity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="#CDDC39"
-        ></Button>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
